@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticación con Facebook y WhatsApp</title>
+</head>
+
+<body>
+
+    <h1>Autenticación con Facebook y WhatsApp</h1>
+
+    <!-- Botón de inicio de sesión con Facebook -->
+    <button onclick="launchWhatsAppSignup()"
+        style="background-color: #1877f2; border: 0; border-radius: 4px; color: #fff; cursor: pointer; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; height: 40px; padding: 0 24px;">
+        Login with Facebook
+    </button>
+
+    <!-- Script de inicialización de Facebook SDK -->
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '851299435970582',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v17.0'
+            });
+        };
+    </script>
+
+    <!-- Cargar el SDK de Facebook para JavaScript -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+    <!-- Script para configurar el inicio de sesión con Facebook -->
+    <script>
+        // Facebook Login with JavaScript SDK
+        function launchWhatsAppSignup() {
+            // Launch Facebook login
+            FB.login(function (response) {
+                if (response.authResponse) {
+                    const accessToken = response.authResponse.accessToken;
+                    // Usa este token para llamar a la API debug_token y obtener el ID compartido de WABA
+                } else {
+                    console.log('El usuario canceló el inicio de sesión o no autorizó completamente.');
+                }
+            }, {
+                config_id: '703085968364840', // El ID de configuración obtenido en el paso anterior va aquí
+                response_type: 'code',     // debe estar configurado en 'code' para el token de acceso del usuario del sistema
+                override_default_response_type: true,
+                extras: {
+                    setup: {
+                        // Puedes colocar datos prellenados aquí
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>
